@@ -1,7 +1,5 @@
 package com.skilldistillery.filmquery.entities;
 
-import java.time.LocalDate;
-
 public class Film {
 /*
 * Complete the Film class with attributes that map to the columns of the film table. 
@@ -12,11 +10,11 @@ public class Film {
 	private int id; // will map as primary key of film table 
 	private String title;
 	private String description;
-	private LocalDate releaseYear; // LocalDate is probably enough, probably won't need LocalDateTime
+	private Integer releaseYear; 
 	private int languageID; // will map to foreign key of another table
 	private int rentalDuration;
 	private double rentalRate;
-	private int length;
+	private Integer length;
 	private double replacementCost;
 	private String rating; // enum in film table DESC, use String here 
 	private String specialFeatures; // set in film table DESC, use String here
@@ -26,7 +24,7 @@ public class Film {
 		
 	}
 	
-	public Film(int id, String title, String description, LocalDate releaseYear, 
+	public Film(int id, String title, String description, Integer releaseYear, 
 			int languageID, int rentalDuration,
 			double rentalRate, int length, double replacementCost, 
 			String rating, String specialFeatures) {
@@ -67,11 +65,11 @@ public class Film {
 		this.description = description;
 	}
 
-	public LocalDate getReleaseYear() {
+	public Integer getReleaseYear() {
 		return releaseYear;
 	}
 
-	public void setReleaseYear(LocalDate releaseYear) {
+	public void setReleaseYear(Integer releaseYear) {
 		this.releaseYear = releaseYear;
 	}
 
@@ -133,10 +131,11 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film ID:" + id + "| Title:" + title + "| Description:" + description + "| Release Year:" + releaseYear
-				+ "| Language ID:" + languageID + "| Rental Duration:" + rentalDuration + "| Rental Rate:" + rentalRate
-				+ "| Length:" + length + "| Replacement Cost:" + replacementCost + "| Rating:" + rating
-				+ "| Special Features:" + specialFeatures;
+		return "Film ID: " + id + "| Title: " + title + "| Description: " + description + "|Release Year: " 
+				+ releaseYear + "| Language ID: " + languageID + "| Rental Duration: " + rentalDuration 
+				+ "| Rental Rate: " + rentalRate	+ "| Length: " + length 
+				+ "| Replacement Cost: " + replacementCost + "| Rating: " + rating
+				+ "| Special Features: " + specialFeatures + " ";
 	}
 
 	
@@ -161,6 +160,5 @@ public class Film {
 			return false;
 		return true;
 	} 
-	
 	
 }

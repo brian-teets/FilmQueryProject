@@ -2,6 +2,7 @@ package com.skilldistillery.filmquery.database;
 
 import java.sql.*;
 import java.util.List;
+import java.time.*;
 
 import com.skilldistillery.filmquery.entities.Actor;
 import com.skilldistillery.filmquery.entities.Film;
@@ -29,41 +30,54 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public Film findFilmById(int filmId) throws SQLException {
-		/*
-		 * Actor actor = null; //... String sql =
-		 * "SELECT id, first_name, last_name FROM actor WHERE id = ?"; 
-		 * PreparedStatement stmt = conn.prepareStatement(sql); stmt.setInt(1,actorId); ResultSet
-		 * actorResult = stmt.executeQuery(); if (actorResult.next()) { actor = new
-		 * Actor(); // Create the object // Here is our mapping of query columns to our
-		 * object fields: actor.setId(actorResult.getInt(1));
-		 * actor.setFirstName(actorResult.getString(2));
-		 * actor.setLastName(actorResult.getString(3));
-		 * actor.setFilms(findFilmsByActorId(actorId)); // An Actor has Films } //...
-		 * return actor;
-		 */
 		Film film = null;
 		String user = "student";
 		String pass = "student";
 		String sql = "SELECT * FROM film WHERE id = ?";
 		try (Connection conn = DriverManager.getConnection(URL, user, pass);
 				) {
-			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, filmId); 
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				System.out.println( "Film ID: " + rs.getInt("id") + " || Title: " + rs.getString("title") );
+			
+			if(rs.next()) {
+				film = new Film(); // create the Film object 
+				film.setId(rs.getInt("id"));
+				film.setTitle(rs.getString("title"));
+				film.setDescription(rs.getString("description"));
+				film.setReleaseYear(rs.getInt("release_year"));
+				film.setLanguageID(rs.getInt("language_id"));
+				film.setRentalDuration(rs.getInt("rental_duration"));
+				film.setRentalRate(rs.getDouble("rental_rate"));
+				film.setLength(rs.getInt("length"));
+				film.setReplacementCost(rs.getDouble("replacement_cost"));
+				film.setRating(rs.getString("rating"));
+				film.setSpecialFeatures(rs.getString("special_features"));
 			}
 		} // end of try-with-resources block 
-		
-		
-
 		return film;
 	}
 
 	@Override
-	public Actor findActorById(int actorId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Actor findActorById(int actorId) throws SQLException{
+		Actor actor = null;
+		String user = "student";
+		String pass = "student";
+		String sql = "SELECT * FROM actor WHERE id = ?";
+		
+		try (Connection conn = DriverManager.getConnection(URL, user, pass);
+				) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, actorId); 
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				actor = new Actor(); // create the Actor object
+				actor.setId(rs.getInt("id"));
+			}
+		} // end of try-with-resources block 
+		
+		return actor;
 	}
 
 	@Override

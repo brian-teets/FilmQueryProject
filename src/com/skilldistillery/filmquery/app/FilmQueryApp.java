@@ -1,5 +1,6 @@
 package com.skilldistillery.filmquery.app;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.database.DatabaseAccessor;
@@ -12,12 +13,18 @@ public class FilmQueryApp {
 
   public static void main(String[] args) {
     FilmQueryApp app = new FilmQueryApp();
-//    app.test();
+    app.test();
 //    app.launch();
   }
 
   private void test() {
-    Film film = db.findFilmById(1);
+    Film film = null;
+	try {
+		film = db.findFilmById(1);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     System.out.println(film);
   }
 
