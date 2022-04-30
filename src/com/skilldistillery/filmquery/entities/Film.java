@@ -1,5 +1,7 @@
 package com.skilldistillery.filmquery.entities;
 
+import java.util.List;
+
 public class Film {
 
 	private int id; // will map as primary key of film table 
@@ -13,16 +15,16 @@ public class Film {
 	private double replacementCost;
 	private String rating; // enum in film table DESC, use String here 
 	private String specialFeatures; // set in film table DESC, use String here
+	private List<Actor> actors;
 	
 	
 	public Film() {
 		
 	}
 	
-	public Film(int id, String title, String description, Integer releaseYear, 
-			int languageID, int rentalDuration,
-			double rentalRate, int length, double replacementCost, 
-			String rating, String specialFeatures) {
+	public Film(int id, String title, String description, Integer releaseYear, int languageID, int rentalDuration,
+			double rentalRate, Integer length, double replacementCost, String rating, String specialFeatures,
+			List<Actor> actors) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -34,8 +36,10 @@ public class Film {
 		this.replacementCost = replacementCost;
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
+		this.actors = actors;
 	}
 
+	
 	public int getId() {
 		return id;
 	}
@@ -92,11 +96,11 @@ public class Film {
 		this.rentalRate = rentalRate;
 	}
 
-	public int getLength() {
+	public Integer getLength() {
 		return length;
 	}
 
-	public void setLength(int length) {
+	public void setLength(Integer length) {
 		this.length = length;
 	}
 
@@ -124,6 +128,15 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 	}
 
+	public List<Actor> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Film ID: " + id + "| Title: " + title + "| Description: " + description + "|Release Year: " 
@@ -133,8 +146,6 @@ public class Film {
 				+ "| Special Features: " + specialFeatures + " ";
 	}
 
-	
-	
 	
 	@Override
 	public int hashCode() {
