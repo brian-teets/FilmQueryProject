@@ -1,12 +1,7 @@
 package com.skilldistillery.filmquery.entities;
 
 public class Film {
-/*
-* Complete the Film class with attributes that map to the columns of the film table. 
-* Use appropriate data types and Java naming conventions. 
-* Provide getters and setters, and appropriate constructors. 
-* Also add a good toString, and equals and hashCode methods.
-*/
+
 	private int id; // will map as primary key of film table 
 	private String title;
 	private String description;

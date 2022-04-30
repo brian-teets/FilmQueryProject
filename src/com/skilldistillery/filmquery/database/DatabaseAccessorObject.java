@@ -1,8 +1,12 @@
 package com.skilldistillery.filmquery.database;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.time.*;
 
 import com.skilldistillery.filmquery.entities.Actor;
 import com.skilldistillery.filmquery.entities.Film;
@@ -74,16 +78,42 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			if(rs.next()) {
 				actor = new Actor(); // create the Actor object
 				actor.setId(rs.getInt("id"));
+				actor.setFirstName(rs.getString("first_name"));
+				actor.setLastName(rs.getString("last_name"));
 			}
 		} // end of try-with-resources block 
-		
 		return actor;
 	}
 
 	@Override
-	public List<Actor> findActorsByFilmId(int filmId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Actor> findActorsByFilmId(int filmId) throws SQLException{
+		/*
+		 * Implement findActorsByFilmId with an appropriate List implementation 
+			that will be populated using a ResultSet and returned.
+		 */
+		List<Actor> actors = new ArrayList<>();
+		
+		String user = "student";
+		String pass = "student";
+		try (Connection conn = DriverManager.getConnection(URL, user, pass);
+				) {
+			String sql = "SELECT * FROM actor "
+					+ "JOIN film_actor ON actor.id = film_actor.actor_id "
+					+ "JOIN film ON film.id = film_actor.film_id"
+					+ "WHERE film.id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, filmId); 
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int actorId = rs.getInt("id");
+				String actorFirstName = rs.getString("first_name");
+				String actorLastName = rs.getString("last_name");
+				Actor actor = new Actor(actorId, actorFirstName, actorLastName);
+				actors.add(actor);
+			}
+		} // end of try-with-resources block 
+		return actors;
 	}
 
 }
