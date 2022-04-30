@@ -11,22 +11,6 @@ import java.util.List;
 import com.skilldistillery.filmquery.entities.Actor;
 import com.skilldistillery.filmquery.entities.Film;
 
-/*
-All JDBC code will be in methods of the DatabaseAccessorObject class.
-
-Implement the findFilmById method that takes an int film ID, and returns a Film object 
-(or null, if the film ID returns no data.)
-
-Implement findActorById method that takes an int actor ID, and returns an Actor object 
-(or null, if the actor ID returns no data.)
-
-Implement findActorsByFilmId with an appropriate List implementation 
-that will be populated using a ResultSet and returned.
-
-Make sure your JDBC code uses PreparedStatement with bind variables instead of concatenating values into SQL strings.
- */
-
-// According to comment by Dee, recommend creating and closing a connection inside of each of the DAO methods.
 
 public class DatabaseAccessorObject implements DatabaseAccessor {
 
