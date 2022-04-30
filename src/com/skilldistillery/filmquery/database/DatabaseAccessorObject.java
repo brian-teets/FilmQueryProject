@@ -11,7 +11,6 @@ import java.util.List;
 import com.skilldistillery.filmquery.entities.Actor;
 import com.skilldistillery.filmquery.entities.Film;
 
-
 public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=US/Mountain";
@@ -22,14 +21,13 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		String user = "student";
 		String pass = "student";
 		String sql = "SELECT * FROM film WHERE id = ?";
-		try (Connection conn = DriverManager.getConnection(URL, user, pass);
-				) {
+		try (Connection conn = DriverManager.getConnection(URL, user, pass);) {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, filmId); 
+			pstmt.setInt(1, filmId);
 			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				film = new Film(); // create the Film object 
+
+			if (rs.next()) {
+				film = new Film(); // create the Film object
 				film.setId(rs.getInt("id"));
 				film.setTitle(rs.getString("title"));
 				film.setDescription(rs.getString("description"));
@@ -42,61 +40,64 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setRating(rs.getString("rating"));
 				film.setSpecialFeatures(rs.getString("special_features"));
 			}
-		} // end of try-with-resources block 
+		} // end of try-with-resources block
 		return film;
 	}
 
 	@Override
-	public Actor findActorById(int actorId) throws SQLException{
+	public Actor findActorById(int actorId) throws SQLException {
 		Actor actor = null;
 		String user = "student";
 		String pass = "student";
 		String sql = "SELECT * FROM actor WHERE id = ?";
-		
-		try (Connection conn = DriverManager.getConnection(URL, user, pass);
-				) {
+
+		try (Connection conn = DriverManager.getConnection(URL, user, pass);) {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, actorId); 
+			pstmt.setInt(1, actorId);
 			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				actor = new Actor(); // create the Actor object
 				actor.setId(rs.getInt("id"));
 				actor.setFirstName(rs.getString("first_name"));
 				actor.setLastName(rs.getString("last_name"));
 			}
-		} // end of try-with-resources block 
+		} // end of try-with-resources block
 		return actor;
 	}
 
 	@Override
-	public List<Actor> findActorsByFilmId(int filmId) throws SQLException{
+	public List<Actor> findActorsByFilmId(int filmId) throws SQLException {
 		/*
-		 * Implement findActorsByFilmId with an appropriate List implementation 
-			that will be populated using a ResultSet and returned.
+		 * Implement findActorsByFilmId with an appropriate List implementation that
+		 * will be populated using a ResultSet and returned.
 		 */
 		List<Actor> actors = new ArrayList<>();
-		
+
 		String user = "student";
 		String pass = "student";
-		try (Connection conn = DriverManager.getConnection(URL, user, pass);
-				) {
-			String sql = "SELECT * FROM actor "
-					+ "JOIN film_actor ON actor.id = film_actor.actor_id "
-					+ "JOIN film ON film.id = film_actor.film_id"
-					+ "WHERE film.id = ?";
+//		String sql = "SELECT actor.id, actor.first_name, actor.last_name "
+//				+ "FROM actor"
+//				+ "JOIN film_actor ON actor.id = film_actor.actor_id "
+//				+ "JOIN film ON film.id = film_actor.film_id "
+//				+ "WHERE film.id = ?"; // somehow the formatting and whitespace messed up my sql syntax
+
+		String sql = "SELECT actor.id ,actor.first_name, actor.last_name FROM actor JOIN film_actor ON actor.id = film_actor.actor_id JOIN film ON film.id = film_actor.film_id WHERE film.id = ?";
+
+		try (Connection conn = DriverManager.getConnection(URL, user, pass);) {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, filmId); 
+			pstmt.setInt(1, filmId);
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				int actorId = rs.getInt("id");
 				String actorFirstName = rs.getString("first_name");
 				String actorLastName = rs.getString("last_name");
+
 				Actor actor = new Actor(actorId, actorFirstName, actorLastName);
 				actors.add(actor);
 			}
-		} // end of try-with-resources block 
+		} // end of try-with-resources block
 		return actors;
 	}
 

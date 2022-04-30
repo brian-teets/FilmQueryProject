@@ -140,10 +140,7 @@ public class Film {
 	@Override
 	public String toString() {
 		return "Film ID: " + id + "| Title: " + title + "| Description: " + description + "|Release Year: " 
-				+ releaseYear + "| Language ID: " + languageID + "| Rental Duration: " + rentalDuration 
-				+ "| Rental Rate: " + rentalRate	+ "| Length: " + length 
-				+ "| Replacement Cost: " + replacementCost + "| Rating: " + rating
-				+ "| Special Features: " + specialFeatures + " ";
+				+ releaseYear;
 	}
 
 	

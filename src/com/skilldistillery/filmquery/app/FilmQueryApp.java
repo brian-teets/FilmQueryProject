@@ -21,15 +21,18 @@ public class FilmQueryApp {
 
   private void test() {
     Film film = null;
+    Actor actor = null;
     List<Actor> actors = null;
 	try {
 		film = db.findFilmById(1);
+		actor = db.findActorById(1);
 		actors = db.findActorsByFilmId(1);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
     System.out.println(film);
+	System.out.println(actor); 
     System.out.println(actors);
   }
 
