@@ -20,7 +20,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		Film film = null;
 		String user = "student";
 		String pass = "student";
-		String sql = "SELECT * FROM film WHERE id = ?";
+//		String sql = "SELECT * FROM film WHERE id = ?";
+		String sql = "SELECT film.id, film.title, film.release_year, language.name, film.language_id, language.id, film.description FROM film JOIN language ON film.language_id = language.id WHERE film.id = ?";
 		try (Connection conn = DriverManager.getConnection(URL, user, pass);) {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, filmId);
@@ -32,13 +33,13 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setTitle(rs.getString("title"));
 				film.setDescription(rs.getString("description"));
 				film.setReleaseYear(rs.getInt("release_year"));
-				film.setLanguageID(rs.getInt("language_id"));
-				film.setRentalDuration(rs.getInt("rental_duration"));
-				film.setRentalRate(rs.getDouble("rental_rate"));
-				film.setLength(rs.getInt("length"));
-				film.setReplacementCost(rs.getDouble("replacement_cost"));
-				film.setRating(rs.getString("rating"));
-				film.setSpecialFeatures(rs.getString("special_features"));
+				film.setLanguage(rs.getString("language.name"));
+//				film.setRentalDuration(rs.getInt("rental_duration"));
+//				film.setRentalRate(rs.getDouble("rental_rate"));
+//				film.setLength(rs.getInt("length"));
+//				film.setReplacementCost(rs.getDouble("replacement_cost"));
+//				film.setRating(rs.getString("rating"));
+//				film.setSpecialFeatures(rs.getString("special_features"));
 			}
 		} // end of try-with-resources block
 		return film;
@@ -76,11 +77,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		String user = "student";
 		String pass = "student";
-//		String sql = "SELECT actor.id, actor.first_name, actor.last_name "
-//				+ "FROM actor"
-//				+ "JOIN film_actor ON actor.id = film_actor.actor_id "
-//				+ "JOIN film ON film.id = film_actor.film_id "
-//				+ "WHERE film.id = ?"; // somehow the formatting and whitespace messed up my sql syntax
 
 		String sql = "SELECT actor.id ,actor.first_name, actor.last_name FROM actor JOIN film_actor ON actor.id = film_actor.actor_id JOIN film ON film.id = film_actor.film_id WHERE film.id = ?";
 
@@ -99,6 +95,39 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			}
 		} // end of try-with-resources block
 		return actors;
+	}
+
+	@Override
+	public List<Film> findFilmsByKeyword(String searchWord) throws SQLException {
+		// TODO Implement findFilmsByKeyword allowing wild card for bind variables for title and description
+		List<Film> films = new ArrayList<>();
+		String user = "student";
+		String pass = "student";
+		/*
+		 * Hint from Dee: 
+		 * -- .... WHERE title LIKE ? OR description LIKE ?;
+		 * pstmt.setString(1, "%" + searchWord + "%"); 
+		 * pstmt.setString(2, "%" + * searchWord + "%"); 
+		 */
+		String sql = "SELECT * FROM film WHERE title LIKE ? OR description LIKE ?";
+		try (Connection conn = DriverManager.getConnection(URL, user, pass);) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + searchWord + "%");
+			pstmt.setString(2, "%" + searchWord + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				// Display: id, title, release year, rating, description 
+				int filmId = rs.getInt("id");
+				String filmTitle = rs.getString("title");
+				int releaseYear = rs.getInt("release_year");
+				String rating = rs.getString("rating");
+				String description = rs.getString("description");
+				
+				Film film = new Film(filmId, filmTitle, releaseYear, rating, description);
+				films.add(film);
+			}
+		} // end of try-with-resources block 
+		return films;
 	}
 
 }

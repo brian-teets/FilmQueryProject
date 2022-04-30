@@ -1,6 +1,7 @@
 package com.skilldistillery.filmquery.app;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -71,6 +72,41 @@ public class FilmQueryApp {
 							System.out.println(film);
 						} else {
 							System.out.println("Sorry, we don't have a record of that film Id. Please try again. ");
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InputMismatchException e) {
+						input.nextLine();
+						System.out.println("Please enter a film Id.");
+					}
+				} else if (userChoice == 2) {
+					/*
+					 * User Story 3 If the user looks up a film by search keyword, they are prompted
+					 * to enter it. If no matching films are found, they see a message saying so.
+					 * Otherwise, they see a list of films for which the search term was found
+					 * anywhere in the title or description, with each film displayed exactly as it
+					 * is for User Story 2.
+					 */
+
+					/*
+					 * Hint from Dee: -- .... WHERE title LIKE ? OR description LIKE ?;
+					 * pstmt.setString(1, "%" + searchWord + "%"); pstmt.setString(2, "%" + *
+					 * searchWord + "%");
+					 */
+					List<Film> films = new ArrayList<>();
+					try {
+						input.nextLine();
+						String filmChoiceByKeyword = "";
+						System.out.println("You chose to find a film (or films) by searching a keyword. "
+								+ "Please enter your keyword now: ");
+						filmChoiceByKeyword = input.nextLine();
+						films = db.findFilmsByKeyword(filmChoiceByKeyword);
+						if (films.size() != 0) {
+							System.out.println("Film:" + films);
+						} else { // TODO handle if empty set is returned
+							System.out.println(
+									"Sorry we couldn't find any films based on your search. Please try again. ");
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
