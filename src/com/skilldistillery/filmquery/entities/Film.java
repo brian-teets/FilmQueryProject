@@ -174,7 +174,8 @@ public class Film {
 		String film = "";
 		
 		film += "Title: " + title  + " | Release Year: " + releaseYear 
-				+ " | Language: " + language + " | Description: " + description 
+				+ " | Language: " + language + " | Rating: " + rating 
+				+ " | Description: " + description 
 				+ "\n" + "Cast of actors: \n";
 		
 		for (Actor actor : actors) {
