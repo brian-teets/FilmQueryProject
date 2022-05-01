@@ -32,17 +32,20 @@ Create a command-line application using Java that retrieves and displays film da
 
 * Run as a Java Application from FilmQueryApp.java
   * Main menu should display in the console
-    * From the console enter a number corresponding to a menu option
+    * From the console enter a number corresponding to a menu option:
+
       * Selecting option `1` from the menu should display a prompt to `search for a film by Id`
         * At which point, you should enter a whole number
         * If a `film` record is found and retrieved from the database, it will be output to the console
           * `Film object's :` `title, release_year, language, rating, description, and cast of actors` (which is a list / collection of Actor objects) should be displayed
         * If a `film` record is not found, you should see a message indicating as such
+
       * Selecting option `2` from the menu should display a prompt to `search for films by a keyword`
         * At which point, you should enter a string of text
         * If a `film` or `list of films` is found and retrieved from the database, the data objects will be displayed in the console
           * Collection of `films` should be displayed, each with `title, release_year, language, rating, description, and cast of actors`
         * If no records are found, you should see a message indicating as such
+        
       * Selecting option `3` from the menu will exit the program and should display a message indicating as such
 
 ## Technologies Used
@@ -56,5 +59,5 @@ Create a command-line application using Java that retrieves and displays film da
 ## Lessons Learned
 
 * Gained exposure and practice implementing JDBC code
-* Gained exposure and practice with method chaining - which was particularly helpful in the DatabaseAccessorObject (DAO) 
+* Gained exposure and practice with method chaining - which was particularly helpful in the DatabaseAccessorObject (DAO)
 * Gained more practice working with Java object-oriented code practices - particularly with encapsulation and abstraction
