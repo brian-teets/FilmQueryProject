@@ -1,6 +1,6 @@
 # Film Query Project
 
-## Week 7 - Weekend Homework Project for Skill Distillery
+## Week 7 of Skill Distillery - Weekend Homework Project
 
 ### Overview
 
@@ -15,7 +15,7 @@ Create a command-line application using Java that retrieves and displays film da
     * Use well encapsulated fields and methods in entity classes:
       * Actor class entity
       * Film class entity
-    * These methods also need to implement getters / setters, overriden toString, equals and hashcode
+    * These methods also need to implement getters / setters, overridden toString, equals and hash-code
 * Implement methods in an app class to:
   * Present a menu of options in the console which:
     * Should be implemented in a loop to allow the user to continue choosing from menu options or exit the program
@@ -45,7 +45,7 @@ Create a command-line application using Java that retrieves and displays film da
         * If a `film` or `list of films` is found and retrieved from the database, the data objects will be displayed in the console
           * Collection of `films` should be displayed, each with `title, release_year, language, rating, description, and cast of actors`
         * If no records are found, you should see a message indicating as such
-        
+
       * Selecting option `3` from the menu will exit the program and should display a message indicating as such
 
 ## Technologies Used
