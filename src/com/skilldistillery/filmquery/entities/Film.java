@@ -42,15 +42,7 @@ public class Film {
 	}
 
 	
-	public Film(int filmId, String filmTitle, Integer releaseYear, String rating, String description) {
-		this.id = filmId;
-		this.title = filmTitle;
-		this.description = description;
-		this.releaseYear = releaseYear;
-		this.rating = rating;
-	}
-
-	public Film(int filmId, String filmTitle, int releaseYear, String rating, String description, String language) {
+	public Film(int filmId, String filmTitle, Integer releaseYear, String rating, String description, String language) {
 		this.id = filmId;
 		this.title = filmTitle;
 		this.description = description;
@@ -58,6 +50,19 @@ public class Film {
 		this.rating = rating;
 		this.language = language;
 	}
+
+	public Film(int filmId, String filmTitle, Integer releaseYear, String rating, 
+			String description, String language, List<Actor> actors) {
+		this.id = filmId;
+		this.title = filmTitle;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.rating = rating;
+		this.language = language;
+		this.actors = actors;
+	}
+
+	
 
 	public int getId() {
 		return id;
@@ -166,9 +171,16 @@ public class Film {
 	
 	@Override
 	public String toString() {
-		return "Title: " + title  + " | Release Year: " + releaseYear 
-				+ " | Language: " + language  
-				+ " | Description: " + description + "\n";
+		String film = "";
+		
+		film += "Title: " + title  + " | Release Year: " + releaseYear 
+				+ " | Language: " + language + " | Description: " + description 
+				+ "\n" + "Cast of actors: \n";
+		
+		for (Actor actor : actors) {
+			film += "\t" + actor;
+		}
+		return film;
 	}
 	
 	
