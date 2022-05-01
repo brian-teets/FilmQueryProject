@@ -56,11 +56,6 @@ public class FilmQueryApp {
 					System.out.println("You chose to exit. Come back again if you change your mind!");
 					break;
 				} else if (userChoice == 1) {
-					/*
-					 * User Story 2: If the user looks up a film by id, they are prompted to enter
-					 * the film id. If the film is not found, they see a message saying so. If the
-					 * film is found, its title, year, rating, and description are displayed.
-					 */
 					Film film = null;
 					try {
 						input.nextLine();
@@ -81,19 +76,6 @@ public class FilmQueryApp {
 						System.out.println("Please enter a film Id.");
 					}
 				} else if (userChoice == 2) {
-					/*
-					 * User Story 3 If the user looks up a film by search keyword, they are prompted
-					 * to enter it. If no matching films are found, they see a message saying so.
-					 * Otherwise, they see a list of films for which the search term was found
-					 * anywhere in the title or description, with each film displayed exactly as it
-					 * is for User Story 2.
-					 */
-
-					/*
-					 * Hint from Dee: -- .... WHERE title LIKE ? OR description LIKE ?;
-					 * pstmt.setString(1, "%" + searchWord + "%"); pstmt.setString(2, "%" + *
-					 * searchWord + "%");
-					 */
 					List<Film> films = new ArrayList<>();
 					try {
 						input.nextLine();
@@ -102,9 +84,9 @@ public class FilmQueryApp {
 								+ "Please enter your keyword now: ");
 						filmChoiceByKeyword = input.nextLine();
 						films = db.findFilmsByKeyword(filmChoiceByKeyword);
-						if (films.size() != 0) {
-							System.out.println("Film:" + films);
-						} else { // TODO handle if empty set is returned
+						if (films.size() != 0) {// TODO handle if empty set is returned
+							System.out.println(films);
+						} else {
 							System.out.println(
 									"Sorry we couldn't find any films based on your search. Please try again. ");
 						}

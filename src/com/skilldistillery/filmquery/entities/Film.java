@@ -10,14 +10,7 @@ public class Film {
 	private Integer releaseYear; 
 	private int languageID; // will map to foreign key of another table
 	private String language;
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
+	
 	private int rentalDuration;
 	private double rentalRate;
 	private Integer length;
@@ -55,6 +48,15 @@ public class Film {
 		this.description = description;
 		this.releaseYear = releaseYear;
 		this.rating = rating;
+	}
+
+	public Film(int filmId, String filmTitle, int releaseYear, String rating, String description, String language) {
+		this.id = filmId;
+		this.title = filmTitle;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.rating = rating;
+		this.language = language;
 	}
 
 	public int getId() {
@@ -152,12 +154,21 @@ public class Film {
 	public void setActors(List<Actor> actors) {
 		this.actors = actors;
 	}
+	
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
 	
 	@Override
 	public String toString() {
-		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
-				+ ", language=" + language + ", actors=" + actors + "]";
+		return "Title: " + title  + " | Release Year: " + releaseYear 
+				+ " | Language: " + language  
+				+ " | Description: " + description + "\n";
 	}
 	
 	
